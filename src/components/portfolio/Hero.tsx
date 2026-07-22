@@ -2,7 +2,7 @@ import { motion, AnimatePresence } from "framer-motion";
 import { ArrowDown, Download, MapPin } from "lucide-react";
 import { useEffect, useState } from "react";
 import { personal } from "@/data/portfolio";
-import portrait from "@/assets/portrait.jpg";
+import portrait from "@/assets/prince.jpg";
 
 const roles = ["Co-Founder.", "Developer.", "Builder."];
 

@@ -79,15 +79,6 @@ export const experiences = [
       "Authored and executed digital content strategies to significantly enhance online brand presence.",
     ],
   },
-  {
-    company: "Binnash Foundation",
-    role: "Co-Founder (Non-Profit)",
-    date: "October 2020 – Present",
-    bullets: [
-      "Co-founded a non-profit focused on rural development initiatives in Bangladesh.",
-      "Lead small-scale tech and media campaigns to support fieldwork.",
-    ],
-  },
 ];
 
 export const projects = [
@@ -98,7 +89,7 @@ export const projects = [
     description:
       "A real-time, community-driven 'Live Iftar Biryani Map' created during Ramadan to help people track and locate free Iftar distribution spots across Bangladesh. The platform rapidly went viral nationwide, garnering massive traction within days. To handle the sudden surge in traffic and maintain uptime, I implemented robust edge caching and DDoS mitigation using Cloudflare. After its success and extensive coverage by national news outlets, the project was completely open-sourced to empower the local developer community.",
     stack: ["React", "Node.js", "Cloudflare", "PostgreSQL", "Open Source"],
-    demo: "#",
+    demo: "https://www.biriyanidibe.me/",
     github: "https://github.com/zubairprince111",
     size: "lg",
     mediaLinks: [
@@ -109,6 +100,39 @@ export const projects = [
       { name: "Jago News 24", url: "https://www.jagonews24.com/technology/article/921102" },
       { name: "Jugantor", url: "https://www.jugantor.com/tech-and-life/787948" }
     ],
+  },
+  {
+    title: "CampusIQ",
+    tag: "AI Platform",
+    impact: "AI-powered university discovery for Bangladesh.",
+    description:
+      "An AI-powered university discovery platform that centralizes information from 165+ institutions, analyzes student profiles, budgets, majors, and more to recommend perfect matches with autonomous web crawling and AI validation to keep data continuously updated.",
+    stack: ["Next.js", "TypeScript", "FastAPI", "Python", "PostgreSQL", "Supabase", "AI", "Vercel"],
+    demo: "https://campusiqbd.vercel.app/",
+    github: "https://github.com/zubairprince111",
+    size: "md",
+  },
+  {
+    title: "GhostCMO",
+    tag: "AI Marketing",
+    impact: "AI-powered influencer discovery & campaign planner.",
+    description:
+      "AI-powered platform that understands your product and budget, then automatically finds creators, matches audience, engagement, and generates tailored campaign concepts using OpenAI/Gemini APIs with RAG and semantic search.",
+    stack: ["Next.js", "TypeScript", "FastAPI", "PostgreSQL", "Supabase", "OpenAI", "RAG", "Vercel"],
+    demo: "https://ghostcmo0.vercel.app/",
+    github: "https://github.com/zubairprince111",
+    size: "md",
+  },
+  {
+    title: "BiyeShadi",
+    tag: "Wedding Tech",
+    impact: "Modern digital wedding invitation platform for Bangladesh.",
+    description:
+      "Beautiful, customizable digital wedding invitation websites with RSVP, music, gallery, Google Maps, and more, built on Next.js + Supabase with Google OAuth.",
+    stack: ["Next.js", "React", "Tailwind CSS", "Supabase", "PostgreSQL", "Vercel"],
+    demo: "https://biyeshadi1.vercel.app/",
+    github: "https://github.com/zubairprince111",
+    size: "md",
   },
   {
     title: "DEKHoo",
