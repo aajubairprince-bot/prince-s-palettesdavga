@@ -1,153 +1,145 @@
-import { motion } from "framer-motion";
+import { useState } from "react";
 import { Section } from "./Section";
 import { personal } from "@/data/portfolio";
-import { Github, Linkedin, Mail, MapPin, Send } from "lucide-react";
-import { useState } from "react";
-import { toast } from "sonner";
+import { ArrowUpRight, Check, Copy, FileText, Github, Linkedin, Mail, Terminal } from "lucide-react";
 
 export const Contact = () => {
-  const [form, setForm] = useState({ name: "", email: "", message: "" });
-  const [isSubmitting, setIsSubmitting] = useState(false);
+  const [copied, setCopied] = useState(false);
 
-  const onSubmit = async (e: React.FormEvent) => {
-    e.preventDefault();
-    if (!form.name || !form.email || !form.message) {
-      toast.error("Please fill in all fields.");
-      return;
-    }
-
-    setIsSubmitting(true);
+  const handleCopyEmail = async () => {
     try {
-      const response = await fetch("/api/send", {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify(form),
-      });
-
-      if (response.ok) {
-        toast.success("Message sent successfully!");
-        setForm({ name: "", email: "", message: "" });
-      } else {
-        const data = await response.json();
-        toast.error(data.error || "Failed to send message.");
-      }
-    } catch (error) {
-      toast.error("Something went wrong. Please try again later.");
-      console.error("Submission error:", error);
-    } finally {
-      setIsSubmitting(false);
+      await navigator.clipboard.writeText(personal.email);
+      setCopied(true);
+      setTimeout(() => setCopied(false), 2500);
+    } catch (err) {
+      console.error("Failed to copy email:", err);
     }
   };
 
   return (
-    <Section id="contact" eyebrow="Contact">
-      <div className="grid gap-12 lg:grid-cols-12">
-        <div className="lg:col-span-7">
-          <motion.h2
-            initial={{ opacity: 0, y: 24 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true }}
-            transition={{ duration: 0.7 }}
-            className="font-display text-3xl font-bold tracking-tighter sm:text-5xl md:text-7xl"
-          >
-            Let's build <br />
-            <span className="text-gradient">something.</span>
-          </motion.h2>
-          <p className="mt-4 max-w-md text-sm text-muted-foreground sm:mt-6 sm:text-lg">
-            Got an idea, a brief, or just want to nerd out about products? My inbox is open.
-          </p>
-
-          <div className="mt-10 space-y-3">
-            <a
-              href={`mailto:${personal.email}`}
-              className="glass group flex items-center gap-4 rounded-2xl p-4 transition-all hover:border-primary/60 hover:-translate-y-0.5"
-            >
-              <div className="rounded-xl bg-primary/15 p-2.5 text-primary">
-                <Mail className="h-5 w-5" />
-              </div>
-              <div>
-                <div className="text-xs uppercase tracking-wider text-muted-foreground">Email</div>
-                <div className="text-sm font-medium">{personal.email}</div>
-              </div>
-            </a>
-            <div className="grid grid-cols-2 gap-3">
-              <a
-                href={personal.linkedinUrl}
-                target="_blank"
-                rel="noreferrer"
-                className="glass group flex items-center gap-3 rounded-2xl p-4 transition-all hover:border-primary/60 hover:-translate-y-0.5"
-              >
-                <Linkedin className="h-5 w-5 text-primary" />
-                <div className="min-w-0">
-                  <div className="text-xs uppercase tracking-wider text-muted-foreground">LinkedIn</div>
-                  <div className="truncate text-sm font-medium">{personal.linkedin}</div>
-                </div>
-              </a>
-              <a
-                href={personal.githubUrl}
-                target="_blank"
-                rel="noreferrer"
-                className="glass group flex items-center gap-3 rounded-2xl p-4 transition-all hover:border-primary/60 hover:-translate-y-0.5"
-              >
-                <Github className="h-5 w-5 text-primary" />
-                <div className="min-w-0">
-                  <div className="text-xs uppercase tracking-wider text-muted-foreground">GitHub</div>
-                  <div className="truncate text-sm font-medium">{personal.github}</div>
-                </div>
-              </a>
+    <Section id="contact" eyebrow="07 / CONTACT & ENGAGEMENT">
+      <div className="py-10 sm:py-20 lg:py-24">
+        <div className="grid gap-10 lg:grid-cols-12 lg:gap-14 xl:gap-20 items-center">
+          
+          {/* Left Column: Heading, Context & Action Triggers */}
+          <div className="lg:col-span-6 xl:col-span-6 text-center lg:text-left flex flex-col items-center lg:items-start">
+            {/* Availability Badge */}
+            <div className="inline-flex items-center gap-2 font-mono text-[11px] sm:text-xs xl:text-sm text-muted-foreground uppercase tracking-widest mb-6 border border-border/60 bg-card/80 px-3.5 py-1.5 sm:px-4 sm:py-2 rounded-full backdrop-blur-sm">
+              <span className="h-2 w-2 rounded-full bg-syntax-green animate-pulse" />
+              <span>Available for High-Impact Roles</span>
             </div>
-            <div className="flex flex-wrap gap-3 pt-2 text-sm text-muted-foreground">
-              <span className="inline-flex items-center gap-1.5"><MapPin className="h-3.5 w-3.5" />{personal.location}</span>
+
+            {/* Display Headline */}
+            <h2 className="font-display text-3xl xs:text-4xl sm:text-6xl md:text-7xl xl:text-7xl font-bold tracking-tight text-foreground mb-4 sm:mb-6 leading-[1.04]">
+              Let's build <br />
+              <span className="text-primary">something real.</span>
+            </h2>
+            
+            <p className="max-w-xl text-sm sm:text-lg xl:text-xl text-foreground/80 leading-relaxed mb-8 sm:mb-10">
+              Whether you have a complex technical problem to solve, a platform to ship, or an engineering role to fill — my inbox is always open.
+            </p>
+
+            {/* Direct Action Links */}
+            <div className="w-full max-w-lg flex flex-col sm:flex-row sm:flex-wrap gap-2.5 sm:gap-3 font-mono text-xs sm:text-sm xl:text-base">
+              <a
+                href={`mailto:${personal.email}`}
+                className="w-full sm:w-auto inline-flex items-center justify-center gap-2 rounded-xl bg-primary px-6 py-4 font-semibold text-primary-foreground transition-all duration-200 hover:bg-primary/90 active:scale-[0.98] shadow-lg shadow-primary/20"
+              >
+                <Mail className="h-4 w-4 xl:h-5 xl:w-5" />
+                <span>SEND EMAIL DIRECTLY</span>
+                <ArrowUpRight className="h-3.5 w-3.5 xl:h-4 xl:w-4" />
+              </a>
+              
+              <div className="grid grid-cols-3 gap-2 w-full sm:w-auto sm:flex sm:flex-row">
+                <a
+                  href={personal.linkedinUrl}
+                  target="_blank"
+                  rel="noreferrer"
+                  className="inline-flex items-center justify-center gap-1.5 rounded-xl border border-border/70 bg-card/60 px-4 py-3.5 font-medium text-foreground hover:border-primary/50 hover:bg-card active:scale-95 transition-all text-xs xl:text-sm"
+                >
+                  <Linkedin className="h-3.5 w-3.5 xl:h-4 xl:w-4 text-primary" />
+                  <span>LINKEDIN</span>
+                </a>
+                
+                <a
+                  href={personal.githubUrl}
+                  target="_blank"
+                  rel="noreferrer"
+                  className="inline-flex items-center justify-center gap-1.5 rounded-xl border border-border/70 bg-card/60 px-4 py-3.5 font-medium text-foreground hover:border-primary/50 hover:bg-card active:scale-95 transition-all text-xs xl:text-sm"
+                >
+                  <Github className="h-3.5 w-3.5 xl:h-4 xl:w-4 text-primary" />
+                  <span>GITHUB</span>
+                </a>
+
+                <a
+                  href="/Abdullah Al Jubair Prince Resume.pdf"
+                  download="Abdullah_Al_Jubair_Prince_Resume.pdf"
+                  className="inline-flex items-center justify-center gap-1.5 rounded-xl border border-border/70 bg-card/60 px-4 py-3.5 font-medium text-foreground hover:border-primary/50 hover:bg-card active:scale-95 transition-all text-xs xl:text-sm"
+                >
+                  <FileText className="h-3.5 w-3.5 xl:h-4 xl:w-4 text-primary" />
+                  <span>RESUME</span>
+                </a>
+              </div>
             </div>
           </div>
+
+          {/* Right Column: Interactive Terminal Workspace Card */}
+          <div className="lg:col-span-6 xl:col-span-6">
+            <div className="w-full rounded-2xl xl:rounded-3xl border border-border/70 bg-card/90 p-5 sm:p-7 xl:p-8 backdrop-blur-xl shadow-2xl shadow-black/50 text-left">
+              
+              <div className="flex items-center justify-between border-b border-border/40 pb-3 sm:pb-4 mb-4 sm:mb-5">
+                <div className="flex items-center gap-2">
+                  <Terminal className="h-4 w-4 xl:h-5 xl:w-5 text-primary" />
+                  <span className="font-mono text-xs xl:text-sm font-semibold text-foreground tracking-wider">
+                    contact_protocol.sh
+                  </span>
+                </div>
+                <button
+                  onClick={handleCopyEmail}
+                  className="group inline-flex items-center gap-1.5 font-mono text-xs xl:text-sm text-muted-foreground hover:text-foreground bg-secondary/60 hover:bg-secondary border border-border/50 px-3.5 py-1.5 rounded-lg active:scale-95 transition-all"
+                  aria-label="Copy email address"
+                >
+                  {copied ? (
+                    <>
+                      <Check className="h-3.5 w-3.5 xl:h-4 xl:w-4 text-syntax-green" />
+                      <span className="text-syntax-green font-medium">Copied!</span>
+                    </>
+                  ) : (
+                    <>
+                      <Copy className="h-3.5 w-3.5 xl:h-4 xl:w-4" />
+                      <span>Copy Address</span>
+                    </>
+                  )}
+                </button>
+              </div>
+
+              <div className="font-mono text-xs sm:text-sm xl:text-base text-foreground/90 space-y-3">
+                <div className="text-muted-foreground flex items-center gap-2">
+                  <span className="text-primary">$</span>
+                  <span>echo $CONTACT_ENDPOINT</span>
+                </div>
+                <div className="font-semibold text-primary pl-4 select-all break-all bg-background/50 p-3 rounded-lg border border-border/40">
+                  {personal.email}
+                </div>
+
+                <div className="pt-2 text-muted-foreground flex items-center gap-2">
+                  <span className="text-primary">$</span>
+                  <span>status --channel=inbox</span>
+                </div>
+                <div className="text-foreground/80 pl-4 text-xs xl:text-sm leading-relaxed">
+                  ✓ Inbox active · Avg response time: &lt; 24 hours · Dhaka (UTC+6)
+                </div>
+              </div>
+
+              <div className="mt-5 pt-3.5 border-t border-border/30 font-mono text-[10px] xl:text-xs text-muted-foreground flex justify-between">
+                <span>security: tls_encrypted</span>
+                <span className="text-primary font-medium">direct_delivery</span>
+              </div>
+
+            </div>
+          </div>
+
         </div>
-
-        <motion.form
-          initial={{ opacity: 0, y: 24 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true }}
-          transition={{ duration: 0.7, delay: 0.15 }}
-          onSubmit={onSubmit}
-          className="glass relative space-y-4 rounded-3xl p-5 sm:p-7 lg:col-span-5"
-        >
-          <div>
-            <label className="mb-1.5 block text-xs font-medium uppercase tracking-wider text-muted-foreground">Name</label>
-            <input
-              value={form.name}
-              onChange={(e) => setForm({ ...form, name: e.target.value })}
-              className="w-full rounded-xl border border-border bg-background/50 px-4 py-3 text-sm outline-none transition-colors focus:border-primary"
-              placeholder="Your name"
-            />
-          </div>
-          <div>
-            <label className="mb-1.5 block text-xs font-medium uppercase tracking-wider text-muted-foreground">Email</label>
-            <input
-              type="email"
-              value={form.email}
-              onChange={(e) => setForm({ ...form, email: e.target.value })}
-              className="w-full rounded-xl border border-border bg-background/50 px-4 py-3 text-sm outline-none transition-colors focus:border-primary"
-              placeholder="you@domain.com"
-            />
-          </div>
-          <div>
-            <label className="mb-1.5 block text-xs font-medium uppercase tracking-wider text-muted-foreground">Message</label>
-            <textarea
-              rows={5}
-              value={form.message}
-              onChange={(e) => setForm({ ...form, message: e.target.value })}
-              className="w-full resize-none rounded-xl border border-border bg-background/50 px-4 py-3 text-sm outline-none transition-colors focus:border-primary"
-              placeholder="Tell me about it…"
-            />
-          </div>
-          <button
-            type="submit"
-            disabled={isSubmitting}
-            className="group flex w-full items-center justify-center gap-2 rounded-xl bg-primary px-4 py-3 sm:px-5 sm:py-3.5 text-sm font-semibold text-primary-foreground transition-all hover:shadow-[0_0_30px_-4px_hsl(var(--primary))] disabled:opacity-70 disabled:cursor-not-allowed"
-          >
-            {isSubmitting ? "Sending..." : "Send message"}
-            {!isSubmitting && <Send className="h-4 w-4 transition-transform group-hover:translate-x-0.5" />}
-          </button>
-        </motion.form>
       </div>
     </Section>
   );

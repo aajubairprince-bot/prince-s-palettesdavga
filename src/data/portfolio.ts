@@ -1,7 +1,7 @@
 export const personal = {
   name: "Abdullah Al Jubair Prince",
   shortName: "Prince",
-  title: "Co-Founder | Engineering Web, AI & Digital Experiences",
+  title: "Software Developer & AI Native Full Stack Developer",
   location: "Dhaka, Bangladesh",
   email: "aa.jubairprince@gmail.com",
   linkedin: "aajubairprincee",
@@ -35,7 +35,7 @@ export const experiences = [
   {
     company: "IUBAT IT Society",
     role: "Additional Manager / Media and Publication",
-    date: "June 2025 – Present",
+    date: "June 2025 – August 2026",
     bullets: [
       "Directed digital content strategy and managed social media platforms to amplify club activities and drive student engagement.",
       "Collaborated with the core media team to design newsletters, publication materials, and event promotions.",
@@ -113,6 +113,17 @@ export const projects = [
     size: "md",
   },
   {
+    title: "Nirapod Dhaka",
+    tag: "🏆 Champion · Hackathon Winner",
+    impact: "AI-powered civic safety & real-time hazard reporting platform.",
+    description:
+      "A community-driven public safety platform for Bangladesh combining real-time geospatial hazard mapping (Leaflet.js + OpenStreetMap), emergency SOS with nearest police station detection, dedicated authority dashboards (Police, Disaster Management, City Corporation), community report validation, and a location-aware AI safety assistant powered by Groq API.",
+    stack: ["React", "TypeScript", "Tailwind CSS", "Leaflet.js", "Supabase", "PostgreSQL", "Groq API", "Hackathon Champion"],
+    demo: "https://nirapoddhk.vercel.app/",
+    github: "https://github.com/zubairprince111",
+    size: "md",
+  },
+  {
     title: "GhostCMO",
     tag: "AI Marketing",
     impact: "AI-powered influencer discovery & campaign planner.",
@@ -158,11 +169,158 @@ export const projects = [
   },
 ];
 
+export interface SkillCategory {
+  id: string;
+  name: string;
+  tag: string;
+  isAiSpecial?: boolean;
+  capabilities?: string[];
+  stack?: string[];
+  items: string[];
+}
+
+export const skillCategories: SkillCategory[] = [
+  {
+    id: "languages",
+    name: "Languages",
+    tag: "Core Syntax",
+    items: [
+      "Python",
+      "JavaScript / Node.js",
+      "TypeScript",
+      "HTML / CSS",
+      "SQL (PostgreSQL, MySQL)",
+      "C / C++ / C#",
+    ],
+  },
+  {
+    id: "engineering",
+    name: "Engineering",
+    tag: "Full-Stack & Systems",
+    items: [
+      "React.js",
+      "Next.js",
+      "Express",
+      "FastAPI",
+      "Tailwind CSS",
+      "PostgreSQL",
+      "Supabase",
+    ],
+  },
+  {
+    id: "ai-engineering",
+    name: "AI Engineering",
+    tag: "Applied Intelligence",
+    isAiSpecial: true,
+    capabilities: [
+      "LLM Applications",
+      "RAG Systems",
+      "AI Agents",
+      "Semantic Search",
+      "Vector Databases",
+      "Embeddings",
+      "Prompt Engineering",
+    ],
+    stack: [
+      "LangChain",
+      "LlamaIndex",
+      "Google Gemini",
+      "OpenAI",
+      "Grok",
+      "pgvector",
+      "Hugging Face",
+    ],
+    items: [
+      "LLM Applications",
+      "RAG Systems",
+      "AI Agents",
+      "Semantic Search",
+      "Vector Databases",
+      "Embeddings",
+      "LangChain",
+      "LlamaIndex",
+      "Google Gemini",
+      "OpenAI",
+      "Grok",
+      "pgvector",
+    ],
+  },
+  {
+    id: "tools",
+    name: "Tools",
+    tag: "Workflow & Cloud",
+    items: [
+      "GitHub",
+      "Figma",
+      "Claude Code",
+      "Cursor",
+      "Notion",
+      "Google Analytics",
+      "Stripe",
+      "SSLCOMMERZ",
+    ],
+  },
+  {
+    id: "creative",
+    name: "Creative",
+    tag: "Media & Production",
+    items: [
+      "DaVinci Resolve",
+      "Premiere Pro",
+      "Photoshop",
+      "Canva",
+    ],
+  },
+];
+
 export const skills = {
-  Languages: ["Python", "JavaScript / Node.js", "HTML / CSS", "SQL (PostgreSQL, MySQL)", "C / C++ / C#"],
-  Frameworks: ["React.js", "Express", "Tailwind CSS", "MongoDB", "Supabase"],
-  Tools: ["GitHub", "Figma", "Claude Code", "Cursor", "Notion", "Google Analytics", "Stripe", "SSLCOMMERZ"],
-  Creative: ["DaVinci Resolve", "Premiere Pro", "Photoshop", "Canva"],
+  Languages: [
+    "Python",
+    "JavaScript / Node.js",
+    "TypeScript",
+    "HTML / CSS",
+    "SQL (PostgreSQL, MySQL)",
+    "C / C++ / C#",
+  ],
+  Engineering: [
+    "React.js",
+    "Next.js",
+    "Express",
+    "FastAPI",
+    "Tailwind CSS",
+    "PostgreSQL",
+    "Supabase",
+  ],
+  "AI Engineering": [
+    "LLM Applications",
+    "RAG Systems",
+    "AI Agents",
+    "Semantic Search",
+    "Vector Databases",
+    "Embeddings",
+    "LangChain",
+    "LlamaIndex",
+    "Google Gemini",
+    "OpenAI",
+    "Grok",
+    "pgvector",
+  ],
+  Tools: [
+    "GitHub",
+    "Figma",
+    "Claude Code",
+    "Cursor",
+    "Notion",
+    "Google Analytics",
+    "Stripe",
+    "SSLCOMMERZ",
+  ],
+  Creative: [
+    "DaVinci Resolve",
+    "Premiere Pro",
+    "Photoshop",
+    "Canva",
+  ],
 };
 
 export const leadership = [

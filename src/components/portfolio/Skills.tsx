@@ -1,65 +1,156 @@
-import { motion } from "framer-motion";
+import { useState } from "react";
+import { motion, AnimatePresence } from "framer-motion";
 import { Section } from "./Section";
-import { skills } from "@/data/portfolio";
-import { Code2, Layers, Wrench, Palette } from "lucide-react";
+import { skillCategories, SkillCategory } from "@/data/portfolio";
+import { Bot, Code, Cpu, Layers, Palette, Sparkles, Terminal, Wrench } from "lucide-react";
 
-const icons = {
-  Languages: Code2,
-  Frameworks: Layers,
-  Tools: Wrench,
-  Creative: Palette,
-};
+export const Skills = () => {
+  const [activeCategory, setActiveCategory] = useState<string>("All");
 
-export const Skills = () => (
-  <Section id="skills" eyebrow="Toolkit" title="What I build with." subtitle="A pragmatic stack — chosen for speed, scale, and shipping.">
-    <div className="grid gap-5 md:grid-cols-2 xl:grid-cols-4">
-      {Object.entries(skills).map(([cat, items], idx) => {
-        const Icon = icons[cat as keyof typeof icons];
-        return (
-          <motion.div
-            key={cat}
-            initial={{ opacity: 0, y: 24 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true }}
-            transition={{ duration: 0.6, delay: idx * 0.1 }}
-            className="glass group relative overflow-hidden rounded-2xl p-5 sm:p-6 transition-all hover:border-primary/40"
-          >
-            <div className="mb-5 flex items-center gap-3">
-              <div className="rounded-xl border border-primary/30 bg-primary/10 p-2.5 text-primary">
-                <Icon className="h-5 w-5" />
-              </div>
-              <h3 className="font-display text-base sm:text-lg font-semibold">{cat}</h3>
-            </div>
-            <ul className="space-y-2.5">
-              {items.map((item, i) => (
-                <motion.li
-                  key={item}
-                  initial={{ opacity: 0, x: -10 }}
-                  whileInView={{ opacity: 1, x: 0 }}
-                  viewport={{ once: true }}
-                  transition={{ duration: 0.4, delay: idx * 0.1 + i * 0.05 }}
-                  className="group/item relative"
-                >
-                  <div className="flex items-center justify-between text-sm">
-                    <span className="text-foreground/85 transition-colors group-hover/item:text-foreground">
-                      {item}
+  const categoryIcons: Record<string, any> = {
+    languages: Code,
+    engineering: Layers,
+    "ai-engineering": Sparkles,
+    tools: Wrench,
+    creative: Palette,
+  };
+
+  const categories = ["All", ...skillCategories.map((c) => c.name)];
+
+  const filteredCategories = activeCategory === "All"
+    ? skillCategories
+    : skillCategories.filter((c) => c.name === activeCategory);
+
+  return (
+    <Section 
+      id="skills" 
+      eyebrow="04 / TOOLKIT" 
+      title="What I build with." 
+      subtitle="Engineering systems from raw syntax to full-stack infrastructure and applied artificial intelligence."
+    >
+      {/* Category Filter Pills with Touch Scroll on Mobile */}
+      <div className="mt-6 sm:mt-8 flex gap-2 overflow-x-auto pb-2 no-scrollbar sm:flex-wrap">
+        {categories.map((cat) => {
+          const isActive = activeCategory === cat;
+          return (
+            <button
+              key={cat}
+              onClick={() => setActiveCategory(cat)}
+              className={`relative font-mono text-xs px-4 py-2 rounded-full border transition-all duration-200 shrink-0 active:scale-95 ${
+                isActive
+                  ? "bg-primary text-primary-foreground border-primary font-semibold shadow-md shadow-primary/20"
+                  : "bg-card/60 text-muted-foreground border-border/60 hover:border-border hover:text-foreground"
+              }`}
+            >
+              {cat}
+            </button>
+          );
+        })}
+      </div>
+
+      {/* 5-Card Grid on Desktop / Snap-friendly Responsive Layout */}
+      <div className="mt-5 sm:mt-8 grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-5 gap-4 sm:gap-5 xl:gap-5 items-stretch">
+        {filteredCategories.map((category: SkillCategory, idx) => {
+          const Icon = categoryIcons[category.id] || Cpu;
+          const isAi = category.isAiSpecial;
+
+          return (
+            <motion.div
+              key={category.id}
+              initial={{ opacity: 0, y: 14 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.35, delay: idx * 0.05 }}
+              className={`relative flex flex-col justify-between rounded-2xl p-5 sm:p-6 backdrop-blur-md transition-all duration-300 ${
+                isAi
+                  ? "border-2 border-primary/60 bg-gradient-to-b from-card via-card to-primary/10 shadow-xl shadow-primary/10 hover:border-primary"
+                  : "border border-border/60 bg-card/50 hover:border-border hover:bg-card hover:shadow-xl hover:shadow-black/30"
+              }`}
+            >
+              {/* AI Featured Glow Indicator */}
+              {isAi && (
+                <div className="absolute -top-3 right-4 inline-flex items-center gap-1 font-mono text-[9px] uppercase tracking-wider font-bold text-primary-foreground bg-primary px-2.5 py-0.5 rounded-full shadow-md shadow-primary/30">
+                  <Sparkles className="h-2.5 w-2.5" />
+                  Applied AI
+                </div>
+              )}
+
+              <div>
+                {/* Header */}
+                <div className="flex items-center justify-between border-b border-border/40 pb-3 mb-3.5">
+                  <div>
+                    <span className={`font-mono text-xs xl:text-sm font-bold uppercase tracking-widest ${isAi ? "text-primary" : "text-muted-foreground"}`}>
+                      {category.name}
                     </span>
+                    <div className="text-[10px] font-mono text-muted-foreground/80 mt-0.5">
+                      {category.tag}
+                    </div>
                   </div>
-                  <div className="mt-1.5 h-[2px] w-full overflow-hidden rounded-full bg-border">
-                    <motion.div
-                      initial={{ width: 0 }}
-                      whileInView={{ width: `${65 + ((i * 17) % 30)}%` }}
-                      viewport={{ once: true }}
-                      transition={{ duration: 1.2, delay: idx * 0.1 + i * 0.06, ease: [0.22, 1, 0.36, 1] }}
-                      className="h-full bg-gradient-to-r from-primary via-accent to-secondary"
-                    />
+                  <div className={`p-1.5 rounded-lg ${isAi ? "bg-primary/20 text-primary" : "bg-muted/40 text-muted-foreground"}`}>
+                    <Icon className="h-4 w-4" />
                   </div>
-                </motion.li>
-              ))}
-            </ul>
-          </motion.div>
-        );
-      })}
-    </div>
-  </Section>
-);
+                </div>
+
+                {/* AI Engineering Specialized Sub-sections */}
+                {isAi && category.capabilities && category.stack ? (
+                  <div className="space-y-3.5">
+                    <div>
+                      <div className="text-[10px] font-mono uppercase tracking-wider text-primary font-semibold mb-2 flex items-center gap-1">
+                        <span>// Capabilities</span>
+                      </div>
+                      <div className="flex flex-wrap gap-1.5">
+                        {category.capabilities.map((item) => (
+                          <span
+                            key={item}
+                            className="font-mono text-[11px] px-2.5 py-1 rounded-md bg-primary/10 border border-primary/30 text-foreground font-medium transition-colors hover:border-primary"
+                          >
+                            {item}
+                          </span>
+                        ))}
+                      </div>
+                    </div>
+
+                    <div className="pt-2 border-t border-border/30">
+                      <div className="text-[10px] font-mono uppercase tracking-wider text-muted-foreground font-semibold mb-2">
+                        // AI Stack & APIs
+                      </div>
+                      <div className="flex flex-wrap gap-1.5">
+                        {category.stack.map((tech) => (
+                          <span
+                            key={tech}
+                            className="font-mono text-[11px] px-2 py-0.5 rounded bg-background/80 border border-border/50 text-muted-foreground transition-colors hover:text-foreground"
+                          >
+                            {tech}
+                          </span>
+                        ))}
+                      </div>
+                    </div>
+                  </div>
+                ) : (
+                  /* Standard Categories */
+                  <div className="flex flex-wrap gap-1.5 sm:gap-2">
+                    {category.items.map((item) => (
+                      <span
+                        key={item}
+                        className="font-mono text-[11px] sm:text-xs px-2.5 py-1 sm:px-3 sm:py-1.5 rounded-lg bg-background/80 border border-border/50 text-foreground/90 transition-all duration-200 hover:border-primary/50 hover:text-primary active:scale-95"
+                      >
+                        {item}
+                      </span>
+                    ))}
+                  </div>
+                )}
+              </div>
+
+              {/* Footer */}
+              <div className="mt-5 pt-3 border-t border-border/30 font-mono text-[10px] text-muted-foreground flex justify-between items-center">
+                <span>{category.items.length} items</span>
+                <span className={isAi ? "text-primary font-semibold" : "text-muted-foreground/80 font-medium"}>
+                  {isAi ? "End-to-end" : "Production-ready"}
+                </span>
+              </div>
+            </motion.div>
+          );
+        })}
+      </div>
+    </Section>
+  );
+};

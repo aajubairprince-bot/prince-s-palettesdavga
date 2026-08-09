@@ -1,43 +1,58 @@
-import { motion } from "framer-motion";
 import { Section } from "./Section";
 import { education } from "@/data/portfolio";
-import { GraduationCap } from "lucide-react";
+import { BookOpen, GraduationCap } from "lucide-react";
 
 export const Education = () => (
-  <Section id="education" eyebrow="Education" title="Foundations.">
-    <motion.div
-      initial={{ opacity: 0, y: 24 }}
-      whileInView={{ opacity: 1, y: 0 }}
-      viewport={{ once: true }}
-      transition={{ duration: 0.7 }}
-      className="glass relative overflow-hidden rounded-3xl p-5 sm:p-8 md:p-12"
-    >
-      <div className="absolute -top-20 -right-20 h-72 w-72 rounded-full bg-primary/10 blur-3xl" />
-      <div className="relative grid gap-8 md:grid-cols-12">
-        <div className="md:col-span-7">
-          <div className="mb-4 inline-flex rounded-xl border border-primary/30 bg-primary/10 p-3 text-primary">
-            <GraduationCap className="h-6 w-6" />
+  <Section 
+    id="education" 
+    eyebrow="06 / ACADEMIC FOUNDATIONS" 
+    title="Education & Theory." 
+    subtitle="Computer science foundation powering practical software engineering and systems architecture."
+  >
+    <div className="mt-8 rounded-2xl xl:rounded-3xl border border-border/60 bg-card/40 p-6 sm:p-8 xl:p-10 backdrop-blur-sm shadow-xl shadow-black/30">
+      <div className="grid gap-8 lg:grid-cols-12 lg:gap-12 xl:gap-16 items-start">
+        
+        <div className="lg:col-span-7 xl:col-span-7">
+          <div className="flex items-center gap-2 mb-3">
+            <span className="inline-flex items-center gap-1.5 font-mono text-[10px] xl:text-xs uppercase tracking-wider font-semibold text-primary bg-primary/10 px-3 py-1 rounded-full border border-primary/20">
+              <GraduationCap className="h-3.5 w-3.5 xl:h-4 xl:w-4" />
+              Undergraduate Degree
+            </span>
           </div>
-          <h3 className="font-display text-lg font-bold sm:text-2xl md:text-3xl">{education.degree}</h3>
-          <div className="mt-2 text-primary">{education.school}</div>
-          <div className="mt-1 text-sm text-muted-foreground">{education.date}</div>
+
+          <h3 className="font-display text-2xl sm:text-3xl xl:text-4xl font-bold tracking-tight text-foreground leading-tight">
+            {education.degree}
+          </h3>
+
+          <div className="text-foreground/90 font-medium text-base sm:text-lg xl:text-xl mt-1.5">
+            {education.school}
+          </div>
+
+          <div className="font-mono text-xs xl:text-sm text-muted-foreground mt-3 flex items-center gap-2">
+            <span>Duration:</span>
+            <span className="text-foreground font-semibold">{education.date}</span>
+          </div>
         </div>
-        <div className="md:col-span-5">
-          <div className="mb-3 text-xs font-semibold uppercase tracking-widest text-muted-foreground">
-            Coursework
+        
+        <div className="lg:col-span-5 xl:col-span-5 flex flex-col gap-3.5 lg:border-l lg:border-border/50 lg:pl-8 xl:pl-10">
+          <div className="flex items-center gap-2 font-mono text-xs xl:text-sm uppercase tracking-widest text-muted-foreground">
+            <BookOpen className="h-3.5 w-3.5 xl:h-4 xl:w-4 text-primary" />
+            <span>Core Theoretical Focus</span>
           </div>
-          <div className="flex flex-wrap gap-2">
-            {education.coursework.map((c) => (
+
+          <div className="flex flex-wrap gap-2 pt-1">
+            {education.coursework.map((course) => (
               <span
-                key={c}
-                className="rounded-lg border border-border bg-background/50 px-3 py-1.5 text-xs font-medium text-foreground/80"
+                key={course}
+                className="font-mono text-xs xl:text-sm px-3.5 py-1.5 rounded-lg bg-background/80 border border-border/50 text-foreground/85 transition-colors hover:border-primary/40 hover:text-primary"
               >
-                {c}
+                {course}
               </span>
             ))}
           </div>
         </div>
+
       </div>
-    </motion.div>
+    </div>
   </Section>
 );

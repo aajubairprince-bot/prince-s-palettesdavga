@@ -4,7 +4,7 @@ import { useEffect, useState } from "react";
 export const Intro = () => {
   const [show, setShow] = useState(true);
   useEffect(() => {
-    const t = setTimeout(() => setShow(false), 1600);
+    const t = setTimeout(() => setShow(false), 800);
     return () => clearTimeout(t);
   }, []);
 
@@ -14,24 +14,24 @@ export const Intro = () => {
         <motion.div
           initial={{ opacity: 1 }}
           exit={{ opacity: 0 }}
-          transition={{ duration: 0.6, ease: [0.22, 1, 0.36, 1] }}
-          className="fixed inset-0 z-[100] flex items-center justify-center bg-background"
+          transition={{ duration: 0.5, ease: [0.22, 1, 0.36, 1] }}
+          className="fixed inset-0 z-[100] flex flex-col items-center justify-center bg-background pointer-events-none select-none"
         >
           <motion.div
-            initial={{ y: 20, opacity: 0 }}
-            animate={{ y: 0, opacity: 1 }}
-            exit={{ y: -20, opacity: 0 }}
-            transition={{ duration: 0.7 }}
-            className="font-display text-3xl font-bold tracking-tight md:text-5xl"
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            exit={{ opacity: 0 }}
+            transition={{ duration: 0.4 }}
+            className="font-mono text-sm sm:text-base text-muted-foreground flex flex-col items-center gap-4"
           >
-            <span className="text-gradient">Abdullah Al Jubair Prince</span>
+            <div>
+              <span className="text-primary">$</span> init
+            </div>
+            <div className="flex gap-1 items-center">
+              <span className="h-2 w-2 rounded-full bg-syntax-amber animate-pulse" />
+              Loading workspace...
+            </div>
           </motion.div>
-          <motion.div
-            initial={{ width: 0 }}
-            animate={{ width: "60%" }}
-            transition={{ duration: 1.2, ease: [0.22, 1, 0.36, 1] }}
-            className="absolute bottom-1/3 h-[2px] max-w-md bg-gradient-to-r from-transparent via-primary to-transparent"
-          />
         </motion.div>
       )}
     </AnimatePresence>

@@ -12,31 +12,33 @@ interface SectionProps {
 
 export const Section = ({ id, eyebrow, title, subtitle, children, className = "" }: SectionProps) => {
   const ref = useRef(null);
-  const inView = useInView(ref, { once: true, margin: "-100px" });
+  const inView = useInView(ref, { once: true, margin: "-60px" });
 
   return (
-    <section id={id} ref={ref} className={`relative py-16 sm:py-20 md:py-24 ${className}`}>
-      <div className="container mx-auto px-5 sm:px-6">
+    <section id={id} ref={ref} className={`relative py-12 sm:py-20 md:py-28 overflow-hidden ${className}`}>
+      <div className="container mx-auto px-4 sm:px-6 lg:px-8 xl:px-12 max-w-7xl 2xl:max-w-[1536px]">
         {(eyebrow || title) && (
           <motion.div
-            initial={{ opacity: 0, y: 24 }}
+            initial={{ opacity: 0, y: 18 }}
             animate={inView ? { opacity: 1, y: 0 } : {}}
-            transition={{ duration: 0.7, ease: [0.22, 1, 0.36, 1] }}
-            className="mb-10 max-w-3xl sm:mb-16"
+            transition={{ duration: 0.6, ease: [0.22, 1, 0.36, 1] }}
+            className="mb-8 max-w-4xl xl:max-w-5xl sm:mb-14"
           >
             {eyebrow && (
-              <div className="mb-4 inline-flex items-center gap-2 rounded-full border border-border bg-card/50 px-3 py-1 text-xs font-medium uppercase tracking-widest text-muted-foreground">
-                <span className="h-1.5 w-1.5 rounded-full bg-primary animate-pulse-glow" />
-                {eyebrow}
+              <div className="mb-3 font-mono text-[11px] sm:text-xs font-semibold uppercase tracking-widest text-primary sm:text-muted-foreground flex items-center gap-2">
+                <span className="h-1.5 w-1.5 rounded-full bg-primary inline-block sm:hidden" />
+                <span>{eyebrow}</span>
               </div>
             )}
             {title && (
-              <h2 className="font-display text-2xl font-bold tracking-tight sm:text-4xl md:text-6xl">
+              <h2 className="font-display text-2xl font-bold tracking-tight text-foreground sm:text-4xl md:text-5xl lg:text-6xl leading-[1.08]">
                 {title}
               </h2>
             )}
             {subtitle && (
-              <p className="mt-3 text-sm text-muted-foreground sm:mt-5 sm:text-lg md:text-xl">{subtitle}</p>
+              <p className="mt-2.5 sm:mt-4 text-xs sm:text-base lg:text-lg text-muted-foreground leading-relaxed max-w-3xl">
+                {subtitle}
+              </p>
             )}
           </motion.div>
         )}
