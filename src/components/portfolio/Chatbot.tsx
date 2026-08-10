@@ -10,12 +10,12 @@ const GREETINGS = [
   "You want the tea on Prince? Ask away. I've got his whole portfolio memorized.",
   "Welcome to the inside scoop. What do you want to know?",
   "Looking for the dirt on Prince? I only have professional highlights, but I'll spill them.",
-  "Hi, I'm Prince's AI assistant. How can I help you?",
-  "Welcome! I’m the bot that does all of Prince’s talking. What do you need to know?"
+  "Hi, I'm Agent Prince, Prince's AI assistant. How can I help you?",
+  "Welcome! I’m Agent Prince, the bot that does all of Prince’s talking. What do you need to know?"
 ];
 
 const SYSTEM_PROMPT = `
-You are an AI assistant for Prince's portfolio. 
+You are Agent Prince, an AI assistant for Prince's portfolio. 
 You are cool, slightly cheeky, and highly confident in Prince's abilities. 
 You talk like a supportive best friend who knows his resume inside and out.
 
@@ -145,7 +145,7 @@ export const Chatbot = () => {
                       <div className="absolute bottom-0 right-0 w-2.5 h-2.5 bg-syntax-green border-2 border-card rounded-full"></div>
                     </div>
                     <div>
-                      <h3 className="text-xs sm:text-sm font-bold tracking-tight font-mono text-foreground">prince_agent</h3>
+                      <h3 className="text-xs sm:text-sm font-bold tracking-tight font-mono text-foreground">agent_prince</h3>
                       <div className="flex items-center gap-1">
                         <div className="w-1.5 h-1.5 rounded-full bg-syntax-green animate-pulse"></div>
                         <p className="text-[9px] sm:text-[10px] text-muted-foreground font-mono uppercase tracking-wider">AI Assistant</p>
