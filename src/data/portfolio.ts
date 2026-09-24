@@ -130,7 +130,7 @@ export const projects = [
     description:
       "AI-powered platform that understands your product and budget, then automatically finds creators, matches audience, engagement, and generates tailored campaign concepts using OpenAI/Gemini APIs with RAG and semantic search.",
     stack: ["Next.js", "TypeScript", "FastAPI", "PostgreSQL", "Supabase", "OpenAI", "RAG", "Vercel"],
-    demo: "https://ghostcmo0.vercel.app/",
+    demo: "https://goostcmo.vercel.app/",
     github: "https://github.com/zubairprince111",
     size: "md",
   },
